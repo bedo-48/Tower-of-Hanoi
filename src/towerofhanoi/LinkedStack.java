@@ -52,7 +52,6 @@ public class LinkedStack<T> implements StackInterface<T> {
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
 
         topNode = null;
         size = 0;
@@ -62,7 +61,7 @@ public class LinkedStack<T> implements StackInterface<T> {
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
+
         return size == 0;
 
     }
@@ -81,18 +80,17 @@ public class LinkedStack<T> implements StackInterface<T> {
 
     @Override
     public T pop() {
-        
-        if(isEmpty()) {
+
+        if (isEmpty()) {
             throw new EmptyStackException();
-            
+
         }
-        
-        
+
         T topData = topNode.getData();
         topNode = topNode.getNextNode();
-        
+
         size--;
-        
+
         return topData;
     }
 
@@ -100,13 +98,31 @@ public class LinkedStack<T> implements StackInterface<T> {
     @Override
     public void push(T anEntry) {
 
-        Node newNode = new Node(anEntry);
-
-        newNode.setNextNode(topNode);
+        Node newNode = new Node(anEntry, topNode);
 
         topNode = newNode;
 
         size++;
 
+    }
+
+
+    @Override
+    public String toString() {
+        if (isEmpty()) {
+            return "[]";
+        }
+
+        StringBuilder sb = new StringBuilder("[");
+        Node current = topNode;
+        while (current != null) {
+            sb.append(current.getData());
+            if (current.getNextNode() != null) {
+                sb.append(", ");
+            }
+            current = current.getNextNode();
+        }
+        sb.append("]");
+        return sb.toString();
     }
 }
